@@ -1,0 +1,62 @@
+<header>
+    <h3>
+        <span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;Create order
+    </h3>
+</header>
+<br>
+<div>
+    <form (ngSubmit)="submit()" #orderForm="ngForm" class="customer-form" novalidate>
+        <div class="form-group">
+            <label>Customer</label>
+            <select class="form-control" 
+                    [(ngModel)]="customerId"
+                    (ngModelChange)="onChangeCustomer()"
+                    name="customer" 
+                    required>
+                <option *ngFor="let customer of customers" [ngValue]="customer.id">{{customer.firstName}} {{customer.lastName}}</option>
+            </select>
+          </div>
+        <div class="form-group">
+        <label>Product Name</label>
+        <input type="text" class="form-control" name="productName" [(ngModel)]="order.productName" #productName="ngModel" required>
+        <div class="alert alert-danger" [hidden]="productName.pristine || productName.valid">Product name is required</div>
+      </div>
+      <div class="form-group">
+        <label>Item cost</label>
+        <input type="number" class="form-control" name="itemCost" [(ngModel)]="order.itemCost" #itemCost="ngModel" required>
+        <div class="alert alert-danger" [hidden]="itemCost.pristine || itemCost.valid">Item cost is required</div>
+      </div>
+      <button id="add-order" type="button" class="btn btn-success" (click)="addOrder()" [disabled]="!(itemCost.pristine || itemCost.valid) && !(productName.pristine || productName.valid)">Add order</button>
+      <div> 
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Item Cost</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let order of orders; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{order.productName}}</td>
+                <td >{{order.itemCost}}</td>
+              </tr>
+              <tr class="font-weight-bold">
+                <td>Total</td>
+                <td></td>
+                <td>{{total}}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      <div>
+        <div class="pull-right" *ngIf="!deleteMessageEnabled">
+          <button class="btn btn-default" (click)="cancel($event)">Cancel</button>&nbsp;&nbsp;
+          <button type="submit" class="btn btn-success add-order">{{ operationText }}</button>
+        </div>
+      </div>
+      <div class="alert alert-danger" *ngIf="errorMessage != null">{{ errorMessage }}</div>
+    </form>
+    <br />
+  </div>
