@@ -1,7 +1,11 @@
 {
   "name": "angular-jump-start",
+  "description": "a really cool app",
   "version": "0.0.0",
   "license": "MIT",
+  "engines": {
+    "node": "12.11.1"
+  },
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
