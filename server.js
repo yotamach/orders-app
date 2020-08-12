@@ -155,13 +155,4 @@ app.listen(port);
 
 console.log('Express listening on port ' + port);
 
-//Open browser
-if (!inContainer && !inAzure) {
-    var opn = require('opn');
-
-    opn('http://localhost:' + port).then(() => {
-        console.log('Browser closed.');
-    }).catch(error => console.log('Error: ',error));
-}
-
 
